@@ -83,7 +83,7 @@ class AntrophioGame(object):
     if len(cardids) != self.table[0]["pick"]:
       raise RuntimeError("Got {}, expected {}.".format(len(cardids),
                                                        self.table[0]["pick"]))
-    cards = [self.players[playerid].pop(id) for id in cardids]
+    cards = [self.players[playerid]["hand"].pop(id) for id in cardids]
     self.table[1][playerid] = cards
     self.white_discarded.extend(cards)
   
