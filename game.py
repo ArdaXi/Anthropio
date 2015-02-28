@@ -4,7 +4,7 @@ import random
 
 class AntrophioGame(object):
   
-  re_search = re.compile(r'[^a-zA-Z0-9_]').search
+  validate_search = re.compile(r'[^a-zA-Z0-9_]').search
 
   def __init__(self):
     self.nextid = 0
@@ -17,7 +17,7 @@ class AntrophioGame(object):
   def load_deck(self, name):
     if name in self.decks:
       return
-    if bool(re_search(name)):
+    if bool(validate_search(name)):
       raise ValueError("Invalid deck name")
     with open(name) as f:
       deck = json.load(f)
@@ -68,10 +68,10 @@ class AntrophioGame(object):
     self.table = (card, {})
     return card
 
-  def play(self, playerid, cardid):
-    card = self.players[playerid].pop(cardid)
-    self.table[1][playerid] = card
-    self.white_discarded.append(card)
+  def play(self, playerid, cardids):
+    cards = [self.players[playerid].pop(id) for id in cardids]
+    self.table[1][playerid] = cards
+    self.white_discarded.extend(cards)
   
   def czar(self):
     return self.table
