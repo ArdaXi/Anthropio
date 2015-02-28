@@ -69,6 +69,8 @@ class AntrophioGame(object):
     return card
 
   def play(self, playerid, cardids):
+    if not self.playing:
+      raise RuntimeError("Not even playing yet!")
     if len(cardids) != self.table[0]["pick"]:
       raise RuntimeError("Got {}, expected {}.".format(len(cardids),
                                                        self.table[0]["pick"]))
@@ -77,11 +79,14 @@ class AntrophioGame(object):
     self.white_discarded.extend(cards)
   
   def czar(self):
+    if not self.playing:
+      raise RuntimeError("Not even playing yet!")
     return self.table
 
   def pick(self, playerid):
     self.players[playerid]["score"] += 1
     self.black_discarded.append(self.table[0])
     self.table = None
+    self.playing = False
     return {playerid: self.players[playerid]["score"] 
               for playerid in self.players}
