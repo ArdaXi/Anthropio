@@ -64,6 +64,9 @@ class AntrophioGame(object):
       result[id] = player["hand"]
     return result
 
+  def score(self, playerid):
+    return self.players[playerid]["score"]
+
   def round(self):
     if not self.primed:
       raise RuntimeError("No deck, no dice.")
