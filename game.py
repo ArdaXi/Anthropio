@@ -12,7 +12,7 @@ class AntrophioGame(object):
     self.black, self.white = [], []
     self.black_discarded, self.wite_discarded = [], []
     self.decks = []
-    self.playing, self.primed = False, False
+    self.playing, self.primed, self.started = False, False, False
 
   def load_deck(self, name):
     if name in self.decks:
@@ -52,6 +52,9 @@ class AntrophioGame(object):
 
   def leave(self, playerid):
     del self.players[playerid]
+
+  def start(self):
+    self.started = True
 
   def deal(self):
     result = {}
