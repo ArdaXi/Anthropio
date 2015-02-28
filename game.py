@@ -50,6 +50,9 @@ class AntrophioGame(object):
     self.players[playerid] = player
     return playerid
 
+  def leave(self, playerid):
+    del self.players[playerid]
+
   def deal(self):
     result = {}
     for id, player in self.players.iteritems():
